@@ -1,0 +1,16 @@
+snake.c: a "snake" clone written in 300~ lines of ANSI C
+
+Motivations:
+    This started as just an in-joke between friends and
+    a little challenge I decided to put on myself, and it
+    was pretty horrid.
+
+    X11 is horrible and I hope it slowly stops existing.
+
+How to build:
+    - You'll need a functional Linux machine or similar
+    - Get the X11 libraries
+    - Get GCC (for output binaries) or change the 
+        makefile as you please
+    - Clone the repo
+    - Run "make".
