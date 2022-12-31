@@ -7,6 +7,12 @@ Motivations:
 
     X11 is horrible and I hope it slowly stops existing.
 
+How to play:
+    Use your arrow keys to move your "snake" to the red 
+    blocks, which will also make your "snake" grow in size.
+
+    If your snake hits the border or itself, game over.
+
 How to build:
     - You'll need a functional Linux machine or similar
     - Get the X11 libraries
