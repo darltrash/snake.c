@@ -1,4 +1,4 @@
-snake.c: a "snake" clone written in 300~ lines of ANSI C
+snake.c: a "snake" clone written in 200~ sloc of ANSI C
 
 Motivations:
     This started as just an in-joke between friends and
