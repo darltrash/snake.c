@@ -19,27 +19,11 @@ Window window;
 XEvent event;
 int screen;
 
-unsigned long RGB(int r, int g, int b) {
-    return b + (g<<8) + (r<<16);
-}
-
-#define MAX(a, b) ((a > b) ? a : b)
-#define MIN(a, b) ((a < b) ? a : b)
-#define CLAMP(x, upper, lower) (MIN(upper, MAX(x, lower)))
-
 // CALLBACKS /////////////////////////////////////////////////////
 
 #define WIDTH 30
 #define HEIGHT 30
 #define GRID_SIZE 10
-
-struct {
-    int up;
-    int down;
-    int left;
-    int right; 
-    int did_something;
-} keys;
 
 enum {
     BLOCK_NONE = 0,
@@ -50,7 +34,7 @@ enum {
 unsigned char snake_lifespans[WIDTH*HEIGHT];
 unsigned char grid[WIDTH*HEIGHT];
 int snake_position[2];
-char snake_velocity[2];
+char snake_velocity[2] = {0, -1};
 
 int clear = 0;
 int process = 1;
@@ -155,21 +139,13 @@ void frame() {
     XDrawText(display, window, gc, x, y-8, &text, 1);
 
     for (int i=0; i < WIDTH * HEIGHT; i++) {
-        unsigned long color = 16777215; // WHITE
-
-        switch (grid[i]) {
-            case BLOCK_SNAKE_PART: {
-                color = 0; // BLACK
-                break;
-            }
-
-            case BLOCK_FOOD: {
-                color = 16711680; // RED
-                break;
-            }
-        }
-
-        XSetForeground(display, gc, color);
+        int e = grid[i];
+        
+        XSetForeground(display, gc, 
+            (e == BLOCK_NONE) ? 16777215 : 
+            (e == BLOCK_FOOD) ? 16711680 :
+            0
+        );
 
         XFillRectangle(
             display, window, gc, 
@@ -258,11 +234,8 @@ int main() {
                 break;
             }
 
-            case ClientMessage:
-                goto breakout;
-
-            case Expose:
-                frame();
+            case ClientMessage: goto breakout;
+            case Expose: frame();
         }
     }
 breakout:
